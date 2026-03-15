@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUXE FURNISH — Premium Furniture Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#" class="nav-logo" onclick="showSection('home')">LUXE <span>FURNISH</span></a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showSection('home');scrollTo('#categories')">Shop</a></li>
+    <li><a href="#" onclick="showSection('home');scrollTo('#products')">Products</a></li>
+    <li><a href="#" onclick="showSection('home');scrollTo('#testimonials')">Reviews</a></li>
+    <li><a href="#" onclick="showWishlist()">Wishlist ❤️</a></li>
+    <li><a href="#" onclick="showSection('home');scrollTo('#newsletter')">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn-cart" onclick="openCart()">🛒 Cart <span class="cart-count" id="cart-count">0</span></button>
+    <div class="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#" onclick="showSection('home');scrollTo('#categories');closeMobileMenu()">Shop</a>
+  <a href="#" onclick="showSection('home');scrollTo('#products');closeMobileMenu()">Products</a>
+  <a href="#" onclick="showSection('home');scrollTo('#testimonials');closeMobileMenu()">Reviews</a>
+  <a href="#" onclick="showWishlist();closeMobileMenu()">Wishlist ❤️</a>
+  <a href="#" onclick="openCart();closeMobileMenu()">Cart 🛒</a>
+</div>
+
+<!-- HOME PAGE -->
+<div id="home-page">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-wrap">
+      <div class="hero-content reveal">
+        <div class="hero-badge">New Collection 2025</div>
+        <h1>Furniture That Tells Your <em>Story</em></h1>
+        <p class="hero-desc">Discover handcrafted, luxury furniture for every room. Built with premium materials, delivered to your door with love.</p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="scrollTo('#products')">Shop Now →</button>
+          <button class="btn-outline" onclick="scrollTo('#categories')">Explore Rooms</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Products</div></div>
+          <div class="stat-item"><div class="stat-num">15K+</div><div class="stat-label">Happy Customers</div></div>
+          <div class="stat-item"><div class="stat-num">4.9★</div><div class="stat-label">Avg Rating</div></div>
+        </div>
+      </div>
+      <div class="hero-img-area reveal">
+        <div class="hero-furniture-visual">
+          <div class="hero-circle"></div>
+          <svg class="sofa-svg" width="320" height="180" viewBox="0 0 320 180">
+            <!-- Sofa body -->
+            <rect x="30" y="80" width="260" height="70" rx="18" fill="#A0724A"/>
+            <!-- Seat cushion left -->
+            <rect x="45" y="90" width="100" height="50" rx="12" fill="#C8963E"/>
+            <!-- Seat cushion right -->
+            <rect x="175" y="90" width="100" height="50" rx="12" fill="#C8963E"/>
+            <!-- Back cushion left -->
+            <rect x="38" y="42" width="100" height="50" rx="12" fill="#B87E4A"/>
+            <!-- Back cushion right -->
+            <rect x="182" y="42" width="100" height="50" rx="12" fill="#B87E4A"/>
+            <!-- Left armrest -->
+            <rect x="20" y="60" width="35" height="80" rx="14" fill="#8B5E2A"/>
+            <!-- Right armrest -->
+            <rect x="265" y="60" width="35" height="80" rx="14" fill="#8B5E2A"/>
+            <!-- Legs -->
+            <rect x="50" y="148" width="18" height="24" rx="6" fill="#5C3D1E"/>
+            <rect x="100" y="148" width="18" height="24" rx="6" fill="#5C3D1E"/>
+            <rect x="202" y="148" width="18" height="24" rx="6" fill="#5C3D1E"/>
+            <rect x="252" y="148" width="18" height="24" rx="6" fill="#5C3D1E"/>
+            <!-- Pillow left -->
+            <ellipse cx="88" cy="68" rx="28" ry="18" fill="#E8B96B" opacity="0.7"/>
+            <!-- Pillow right -->
+            <ellipse cx="232" cy="68" rx="28" ry="18" fill="#E8B96B" opacity="0.7"/>
+          </svg>
+          <div class="floating-card card1">
+            <div class="fc-label">Best Seller</div>
+            <div class="fc-val">Luxe Sofa Set</div>
+            <div style="color:var(--gold);font-weight:700;font-size:1rem;margin-top:0.3rem;">₹45,999</div>
+          </div>
+          <div class="floating-card card2">
+            <div class="fc-label">Free Delivery</div>
+            <div class="fc-val">Pan India 🚚</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section id="categories">
+    <div class="section-header reveal">
+      <span class="section-tag">Browse by Room</span>
+      <h2>Find Your Perfect Space</h2>
+    </div>
+    <div class="category-grid" id="category-grid">
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="section-header reveal">
+      <span class="section-tag">Our Collection</span>
+      <h2>Featured Products</h2>
+    </div>
+    <div class="filter-bar">
+      <input type="text" id="search-input" placeholder="🔍  Search furniture..." oninput="filterProducts()">
+      <select onchange="filterProducts()" id="sort-select">
+        <option value="default">Sort: Featured</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="price-high">Price: High to Low</option>
+        <option value="rating">Top Rated</option>
+        <option value="newest">Newest</option>
+      </select>
+      <select onchange="filterProducts()" id="cat-filter">
+        <option value="all">All Categories</option>
+        <option value="Living Room">Living Room</option>
+        <option value="Bedroom">Bedroom</option>
+        <option value="Dining">Dining</option>
+        <option value="Office">Office</option>
+        <option value="Outdoor">Outdoor</option>
+      </select>
+    </div>
+    <div class="products-grid" id="products-grid"></div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="features-grid">
+      <div class="feature-item reveal">
+        <div class="feat-icon">🚚</div>
+        <div class="feat-title">Free Pan-India Delivery</div>
+        <div class="feat-desc">Free shipping on all orders above ₹5,000. Delivered safely to your doorstep.</div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feat-icon">🏆</div>
+        <div class="feat-title">Premium Quality</div>
+        <div class="feat-desc">Crafted from the finest solid wood and premium fabrics. Built to last generations.</div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feat-icon">🔄</div>
+        <div class="feat-title">30-Day Easy Returns</div>
+        <div class="feat-desc">Not satisfied? Return anything within 30 days, no questions asked.</div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feat-icon">💳</div>
+        <div class="feat-title">Secure Payments</div>
+        <div class="feat-desc">UPI, Cards, Net Banking, EMI — pay the way you prefer. 100% secure.</div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feat-icon">🛠️</div>
+        <div class="feat-title">Expert Assembly</div>
+        <div class="feat-desc">Our team will assemble your furniture at home for free. Just relax!</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="section-header reveal">
+      <span class="section-tag">Customer Love</span>
+      <h2>What Our Customers Say</h2>
+    </div>
+    <div class="testimonials-grid" id="testimonials-grid"></div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter">
+    <div class="reveal">
+      <span class="section-tag" style="color:var(--gold-light)">Stay Updated</span>
+      <h2>Get 10% Off Your First Order</h2>
+      <p>Subscribe for exclusive deals, new arrivals & home décor tips.</p>
+      <div class="newsletter-form">
+        <input type="email" id="newsletter-email" placeholder="Enter your email...">
+        <button class="btn-sub" onclick="subscribeNewsletter()">Subscribe</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="nav-logo" href="#">LUXE <span>FURNISH</span></a>
+        <p>India's most loved online furniture store. Bringing premium craftsmanship to every home since 2018.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">Living Room</a></li>
+          <li><a href="#">Bedroom</a></li>
+          <li><a href="#">Dining</a></li>
+          <li><a href="#">Office</a></li>
+          <li><a href="#">Outdoor</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Assembly Guide</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 LuxeFurnish. All rights reserved. Made with ❤️ in India. | 📞 1800-123-4567 | ✉️ hello@luxefurnish.com
+    </div>
+  </footer>
+</div>
+
+<!-- WISHLIST PAGE -->
+<div id="wishlist-page">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;">
+      <button onclick="showSection('home')" style="background:transparent;border:1.5px solid var(--border);padding:0.5rem 1.2rem;border-radius:50px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">← Back</button>
+      <h2 style="font-family:'Playfair Display',serif;">Your Wishlist ❤️</h2>
+    </div>
+    <div id="wishlist-grid" class="products-grid"></div>
+    <div id="wishlist-empty" style="text-align:center;padding:4rem;color:var(--text-muted);display:none;">
+      <div style="font-size:3rem;margin-bottom:1rem;">💔</div>
+      <div style="font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;color:var(--brown-deep);">Your wishlist is empty</div>
+      <div style="margin-bottom:1.5rem;">Start adding products you love!</div>
+      <button class="btn-primary" onclick="showSection('home')">Browse Products</button>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-header">
+    <div class="cart-title">Shopping Cart 🛒</div>
+    <button class="close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items-list"></div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-subtotal"><span>Subtotal</span><span id="cart-sub">₹0</span></div>
+    <div class="cart-subtotal"><span>Delivery</span><span style="color:var(--sage);font-weight:600;">FREE</span></div>
+    <div class="cart-total"><span>Total</span><span id="cart-total-val">₹0</span></div>
+    <button class="btn-checkout" onclick="openCheckout()">Proceed to Checkout →</button>
+    <button class="btn-continue" onclick="closeCart()">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkout-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-step-title">Shipping Details</div>
+      <button class="close-btn" onclick="closeCheckout()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="steps-bar">
+        <div class="step-dot active" id="step1-dot"></div>
+        <div class="step-dot" id="step2-dot"></div>
+        <div class="step-dot" id="step3-dot"></div>
+      </div>
+
+      <!-- STEP 1: SHIPPING -->
+      <div id="checkout-step1">
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" id="fname" placeholder="Raj"></div>
+          <div class="form-group"><label>Last Name</label><input type="text" id="lname" placeholder="Sharma"></div>
+        </div>
+        <div class="form-group"><label>Email</label><input type="email" id="email" placeholder="raj@email.com"></div>
+        <div class="form-group"><label>Phone</label><input type="tel" id="phone" placeholder="+91 98765 43210"></div>
+        <div class="form-group"><label>Address</label><input type="text" id="address" placeholder="123, MG Road, Flat 4B"></div>
+        <div class="form-row">
+          <div class="form-group"><label>City</label><input type="text" id="city" placeholder="Ahmedabad"></div>
+          <div class="form-group"><label>PIN Code</label><input type="text" id="pin" placeholder="380001"></div>
+        </div>
+        <div class="form-group"><label>State</label>
+          <select class="modal-select" id="state">
+            <option>Gujarat</option><option>Maharashtra</option><option>Delhi</option><option>Karnataka</option><option>Tamil Nadu</option><option>Rajasthan</option><option>West Bengal</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- STEP 2: PAYMENT -->
+      <div id="checkout-step2" style="display:none">
+        <div class="order-summary-mini">
+          <div class="oms-title">Order Summary</div>
+          <div id="oms-items"></div>
+          <div class="oms-total"><span>Total</span><span id="oms-total-val">₹0</span></div>
+        </div>
+        <div style="font-size:0.82rem;font-weight:600;color:var(--brown-mid);margin-bottom:0.8rem;letter-spacing:0.3px;">PAYMENT METHOD</div>
+        <div class="payment-methods">
+          <div class="pay-method selected" id="pm-upi" onclick="selectPayment('upi')">
+            <div class="pay-icon">📱</div>
+            <div class="pay-name">UPI</div>
+          </div>
+          <div class="pay-method" id="pm-card" onclick="selectPayment('card')">
+            <div class="pay-icon">💳</div>
+            <div class="pay-name">Card</div>
+          </div>
+          <div class="pay-method" id="pm-netbank" onclick="selectPayment('netbank')">
+            <div class="pay-icon">🏦</div>
+            <div class="pay-name">Net Banking</div>
+          </div>
+          <div class="pay-method" id="pm-cod" onclick="selectPayment('cod')">
+            <div class="pay-icon">💵</div>
+            <div class="pay-name">Cash on Delivery</div>
+          </div>
+        </div>
+        <div class="upi-field show" id="upi-input-wrap">
+          <div class="form-group"><label>UPI ID</label><input type="text" placeholder="yourname@upi" id="upi-id"></div>
+        </div>
+        <div class="card-fields" id="card-fields">
+          <div class="form-group"><label>Card Number</label><input type="text" placeholder="1234 5678 9012 3456" maxlength="19" id="card-num" oninput="formatCard(this)"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Expiry</label><input type="text" placeholder="MM/YY" maxlength="5" id="card-exp" oninput="formatExp(this)"></div>
+            <div class="form-group"><label>CVV</label><input type="text" placeholder="•••" maxlength="3" id="card-cvv"></div>
+          </div>
+          <div class="form-group"><label>Cardholder Name</label><input type="text" placeholder="Raj Sharma" id="card-name"></div>
+        </div>
+        <div id="netbank-wrap" style="display:none">
+          <div class="form-group"><label>Select Bank</label>
+            <select class="modal-select">
+              <option>SBI</option><option>HDFC Bank</option><option>ICICI Bank</option><option>Axis Bank</option><option>Kotak</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div id="cod-msg" style="display:none;background:var(--cream);padding:1rem;border-radius:12px;font-size:0.88rem;color:var(--text-muted);line-height:1.6;">
+          💵 Pay when your furniture is delivered to your doorstep. Please have the exact amount ready.
+        </div>
+      </div>
+
+      <!-- STEP 3: SUCCESS -->
+      <div id="checkout-step3" style="display:none">
+        <div class="success-view">
+          <div class="success-icon">🎉</div>
+          <div class="success-title">Order Placed!</div>
+          <p class="success-msg">Thank you for shopping with LuxeFurnish! Your order has been confirmed and will be delivered within 7-10 business days.</p>
+          <div class="order-id" id="order-id-display"></div>
+          <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1.5rem;">A confirmation has been sent to your email address.</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer" id="modal-footer">
+      <button class="btn-back" id="btn-back" onclick="prevStep()" style="display:none">← Back</button>
+      <button class="btn-next" id="btn-next" onclick="nextStep()">Continue to Payment →</button>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE MANAGER MODAL -->
+<div id="img-manager-overlay">
+  <div id="img-manager-modal">
+    <div class="im-header">
+      <div>
+        <div class="im-title">🖼️ Product Image Manager</div>
+        <div class="im-subtitle">Drekh product ni image change karo — upload karo ya URL paste karo</div>
+      </div>
+      <button class="close-btn" onclick="closeImgManager()">✕</button>
+    </div>
+    <div class="im-body">
+      <!-- TABS -->
+      <div class="im-tab-bar">
+        <button class="im-tab active" id="tab-single" onclick="switchTab('single')">📦 Product by Product</button>
+        <button class="im-tab" id="tab-bulk" onclick="switchTab('bulk')">📁 Bulk Upload</button>
+      </div>
+
+      <!-- SINGLE TAB -->
+      <div id="single-tab">
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1.2rem;">Image par click karo → File choose karo <strong>ya</strong> URL box ma link paste karo → Set dabao</p>
+        <div class="im-grid" id="im-product-grid"></div>
+      </div>
+
+      <!-- BULK TAB -->
+      <div id="bulk-tab" style="display:none">
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1rem;">Ek sathe badhi images select karo. Files na naam aa rite rakho jethhi match thay:</p>
+        <div style="background:var(--cream);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.2rem;font-size:0.8rem;color:var(--text-muted);line-height:1.8;">
+          <strong style="color:var(--brown-deep);">File naming format:</strong><br>
+          product-1.jpg, product-2.jpg ... product-12.jpg<br>
+          <em>ya</em> product_1.png, product_2.png ... product_12.png
+        </div>
+        <div class="im-bulk-area" onclick="document.getElementById('bulk-file-input').click()">
+          <div class="im-bulk-icon">📂</div>
+          <div class="im-bulk-text">Click karo ane images select karo</div>
+          <div class="im-bulk-sub">JPG, PNG, WebP support chhe · Multiple files select thay</div>
+        </div>
+        <input type="file" id="bulk-file-input" class="im-bulk-input" multiple accept="image/*" onchange="handleBulkUpload(event)">
+        <div id="bulk-status" style="font-size:0.85rem;color:var(--text-muted);margin-top:0.5rem;"></div>
+        <div style="margin-top:1.5rem;">
+          <div style="font-size:0.85rem;font-weight:600;color:var(--brown-deep);margin-bottom:0.8rem;">Preview — Changed Images:</div>
+          <div class="im-grid" id="im-bulk-preview"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
